@@ -1,6 +1,9 @@
 "use client";
 import { useState, useCallback } from "react";
+import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 
 import Input from "@/app/_components/inputs/Input";
@@ -35,14 +38,41 @@ export default function AuthForm() {
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
         if (variant === "REGISTER") {
+            // Send request by axios to register a new account
+            axios
+                .post("/api/register", data)
+                .catch(() => toast.error("Something went wrong."))
+                .finally(() => setIsLoading(false));
         }
         if (variant === "LOGIN") {
+            // Send request by axios to login
+            signIn("credentials", { ...data, redirect: false })
+                .then((res) => {
+                    if (res?.error) {
+                        toast.error("Invalid credentials.");
+                    }
+                    if (res?.ok && !res?.error) {
+                        toast.success("Login successfully.");
+                    }
+                })
+                .finally(() => setIsLoading(false));
         }
     };
 
     const socialAction = (action: string) => {
         setIsLoading(true);
+        signIn(action, { redirect: false })
+            .then((res) => {
+                if (res?.error) {
+                    toast.error("Invalid credentials.");
+                }
+                if (res?.ok && !res?.error) {
+                    toast.success("Login successfully.");
+                }
+            })
+            .finally(() => setIsLoading(false));
     };
+
     return (
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
