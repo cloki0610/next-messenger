@@ -2,9 +2,28 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, paste your db link to .env then use "npx prisma db push" to create db in your database.
+First, setup .env file
 
-Second, run the development server:
+```
+DATABASE_URL=
+NEXTAUTH_SECRET=
+
+NEXT_PUBLIC_PUSHER_APP_KEY=
+PUSHER_APP_ID=
+PUSHER_SECRET=
+
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
+
+GITHUB_ID=
+GITHUB_SECRET=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
+
+Second, use "npx prisma db push" to create db in your database.
+
+Finally, run the development server:
 
 ```bash
 npm run dev
