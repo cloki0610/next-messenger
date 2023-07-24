@@ -2,7 +2,6 @@
     Get current user data from session and db using prisma
     (Optional: replace it by any ORM)
 */
-
 import prisma from "@/app/_lib/prismadb";
 import getSession from "./getSession";
 
