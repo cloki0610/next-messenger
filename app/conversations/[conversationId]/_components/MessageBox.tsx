@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
@@ -46,7 +47,19 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
                     </div>
                 </div>
                 <div className={message}>
-                    <div>{data.body}</div>
+                    {data.image ? (
+                        <Image
+                            alt="Image"
+                            height="288"
+                            width="288"
+                            onClick={() => setImageModalOpen(true)}
+                            src={data.image}
+                            className="object-cover cursor-pointer 
+                            hover:scale-110 transition translate"
+                        />
+                    ) : (
+                        <div>{data.body}</div>
+                    )}
                 </div>
                 {isLast && isOwn && seenList.length > 0 && (
                     <div className="text-xs font-light text-gray-500">
