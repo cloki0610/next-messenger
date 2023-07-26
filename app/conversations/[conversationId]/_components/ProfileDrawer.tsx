@@ -5,11 +5,12 @@ import { IoClose, IoTrash } from "react-icons/io5";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
 
+import Avatar from "@/app/_components/Avatar";
+import AvatarGroup from "@/app/_components/AvatarGroup";
+import ConfirmModal from "./ConfirmModal";
+import Backdrop from "@/app/_components/modals/Backdrop";
 import useOtherUser from "@/app/_hooks/useOtherUser";
 import useActiveList from "@/app/_hooks/useActiveList";
-
-import Avatar from "@/app/_components/Avatar";
-import ConfirmModal from "./ConfirmModal";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -55,18 +56,8 @@ export default function ProfileDrawer({
       <Transition.Root show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={onClose}>
           {/* Backdrop */}
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-500"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-500"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-40" />
-          </Transition.Child>
-
+          <Backdrop />
+          {/* Profile Drawer */}
           <div className="fixed inset-0 overflow-hidden">
             <div className="absolute inset-0 overflow-hidden">
               <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -105,7 +96,11 @@ export default function ProfileDrawer({
                         <div className="flex flex-col items-center">
                           <div className="mb-2">
                             {/* Avatar Icon */}
-                            <Avatar user={otherUser} />
+                            {data.isGroup ? (
+                              <AvatarGroup users={data.users} />
+                            ) : (
+                              <Avatar user={otherUser} />
+                            )}
                           </div>
                           <div>{title}</div>
                           <div className="text-sm text-gray-500">
@@ -128,6 +123,23 @@ export default function ProfileDrawer({
                           <div className="w-full pb-5 pt-5 sm:px-0 sm:pt-0">
                             {/* Display other user details */}
                             <dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
+                              {/* Display all group chat member's email */}
+                              {data.isGroup && (
+                                <div>
+                                  <dt
+                                    className="text-sm font-medium text-gray-500 
+                                    sm:w-40 sm:flex-shrink-0"
+                                  >
+                                    Emails
+                                  </dt>
+                                  <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                    {data.users
+                                      .map((user) => user.email)
+                                      .join(", ")}
+                                  </dd>
+                                </div>
+                              )}
+                              {/* Or display other user's email and join date */}
                               {!data.isGroup && (
                                 <div>
                                   <dt
