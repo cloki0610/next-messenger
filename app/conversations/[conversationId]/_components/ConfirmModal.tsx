@@ -38,35 +38,15 @@ export default function ConfirmModal({ isOpen, onClose }: ConfirmModalProps) {
         <Modal isOpen={isOpen} onClose={onClose}>
             <div className="sm:flex sm:items-start">
                 <div
-                    className="
-            mx-auto 
-            flex 
-            h-12 
-            w-12 
-            flex-shrink-0 
-            items-center 
-            justify-center 
-            rounded-full 
-            bg-red-100 
-            sm:mx-0 
-            sm:h-10 
-            sm:w-10
-          "
+                    className="mx-auto flex items-center justify-center flex-shrink-0 
+                    h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
                 >
                     <FiAlertTriangle
                         className="h-6 w-6 text-red-600"
                         aria-hidden="true"
                     />
                 </div>
-                <div
-                    className="
-            mt-3 
-            text-center 
-            sm:ml-4 
-            sm:mt-0 
-            sm:text-left
-          "
-                >
+                <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                     <Dialog.Title
                         as="h3"
                         className="text-base font-semibold leading-6 text-gray-900"
