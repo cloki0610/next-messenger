@@ -8,6 +8,7 @@ import { HiEllipsisHorizontal } from "react-icons/hi2";
 import Avatar from "@/app/_components/Avatar";
 import useOtherUser from "@/app/_hooks/useOtherUser";
 import useActiveList from "@/app/_hooks/useActiveList";
+import ProfileDrawer from "./ProfileDrawer";
 
 interface HeaderProps {
     conversation: Conversation & {
@@ -31,6 +32,11 @@ export default function Header({ conversation }: HeaderProps) {
 
     return (
         <>
+            <ProfileDrawer
+                data={conversation}
+                isOpen={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
+            />
             <div
                 className="bg-white w-full flex justify-between border-b-[1px] 
                 sm:px-4 py-3 px-4 lg:px-6 items-center shadow-sm"
@@ -38,7 +44,7 @@ export default function Header({ conversation }: HeaderProps) {
                 <div className="flex gap-3 items-center">
                     <Link
                         href="/conversations"
-                        className="block lg:hidden text-sky-500 hover:text-sky-600 
+                        className="block lg:hidden text-gray-500 hover:text-gray-600 
                         transition cursor-pointer"
                     >
                         <HiChevronLeft size={32} />

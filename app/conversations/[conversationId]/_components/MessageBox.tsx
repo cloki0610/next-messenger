@@ -28,7 +28,7 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
     const body = clsx("flex flex-col gap-2", isOwn && "items-end");
     const message = clsx(
         "text-sm w-fit overflow-hidden",
-        isOwn ? "bg-sky-500 text-white" : "bg-gray-100",
+        isOwn ? "bg-gray-500 text-white" : "bg-gray-100",
         data.image ? "rounded-md p-0" : "rounded-full py-2 px-3"
     );
 
