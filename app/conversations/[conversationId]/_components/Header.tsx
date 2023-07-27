@@ -19,9 +19,9 @@ interface HeaderProps {
 
 export default function Header({ conversation }: HeaderProps) {
   const otherUser = useOtherUser(conversation);
+  const { members } = useActiveList();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const { members } = useActiveList();
   const isActive = members.indexOf(otherUser?.email!) !== -1;
   const statusText = useMemo(() => {
     if (conversation.isGroup) {
